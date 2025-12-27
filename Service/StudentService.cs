@@ -225,74 +225,176 @@ public class StudentService : IStudent, ICourse
 
     #endregion
 
+    #region RemoveStudentsWithoutAddress
+
     public void RemoveStudentsWithoutAddress()
     {
-        throw new NotImplementedException();
+        _students.RemoveAll(x => x.Address == null);
     }
+
+    #endregion
+
+    #region EditStudentAddress
 
     public void EditStudentAddress(int studentId, string newAddress)
     {
-        throw new NotImplementedException();
+        var res = _students.Where(x => x.Id == studentId).FirstOrDefault();
+        if (res == null)
+        {
+            Console.WriteLine("No students found");
+            return;
+        }
+        res.Address = newAddress;
+        Console.WriteLine("Update student address");
+        return;
     }
+
+    #endregion
+
+    #region EditStudentBirthYear
 
     public void EditStudentBirthYear(int studentId, int birthYear)
     {
-        throw new NotImplementedException();
+        var res = _students.Where(x => x.Id == studentId).FirstOrDefault();
+        if (res == null)
+        {
+            Console.WriteLine("No students found");
+            return;
+        }
+        
+        Console.WriteLine("Update student birth year");
+        res.BirthYear = birthYear;
     }
+
+    #endregion
+
+    #region ClearAllStudents
 
     public void ClearAllStudents()
     {
-        throw new NotImplementedException();
+        _students.Clear();
+        Console.WriteLine("Clear all students");
     }
 
+    #endregion
+
     // Course Methods
+
+    #region AddCourse
+
     public void AddCourse(Course course)
     {
-        throw new NotImplementedException();
+        _courses.Add(course);
+        Console.WriteLine($"Create course Id: {course.Id}");
     }
+
+    #endregion
+
+    #region GetCoursesByStudentId
 
     public void GetCoursesByStudentId(int studentId)
     {
-        throw new NotImplementedException();
+        var res = _courses.Find(x => x.StudentId == studentId);
+        if (res == null)
+        {
+            Console.WriteLine("Course not found");
+            return;
+        }
+        
+        res.DisplayInfo();
     }
+
+    #endregion
+
+    #region UpdateCourse
 
     public void UpdateCourse(Course course)
     {
-        throw new NotImplementedException();
+        var res = _courses.Where(x => x.Id == course.Id).FirstOrDefault();
+        if(res == null)
+        {
+            Console.WriteLine("Course not found");
+            return;
+        }
+
+        res.Description = course.Description;
+        res.Title = course.Title;
+        Console.WriteLine("Updated Course " + res.Title);
     }
+
+    #endregion
+
+    #region DeleteCourse
 
     public void DeleteCourse(int courseId)
     {
-        throw new NotImplementedException();
+        _courses.RemoveAll(x => x.Id == courseId);
     }
+
+    #endregion
+
+    #region GetCourseCountByStudentId
 
     public int GetCourseCountByStudentId(int studentId)
     {
-        throw new NotImplementedException();
+        var res = _courses.Where(x => x.StudentId == studentId).ToList();
+        if (res != null)
+        {
+            return res.Count;
+        }
+
+        return 0;
     }
+
+    #endregion
+
+    #region GetAdultStudents
 
     public List<Course> GetAdultStudents(int minAge)
     {
-        throw new NotImplementedException();
+        var res = _students.Where(x => (2025 - x.BirthYear) >= minAge).ToList();
+        var result = _courses.Where(x => x.StudentId == res.FirstOrDefault().Id).ToList();
+        return result;
     }
+
+    #endregion
+
+    #region GetCoursesByTitlePart
 
     public List<Course> GetCoursesByTitlePart(string text)
     {
-        throw new NotImplementedException();
+        var res = _courses.Where(x => x.Title.ToLower().Contains(text.ToLower())).ToList();
+        return res;
     }
+
+    #endregion
+
+    #region SortCoursesByTitle
 
     public List<Course> SortCoursesByTitle()
     {
-        throw new NotImplementedException();
+        var res = _courses.OrderBy(x => x.Title).ToList();
+        return res;
     }
+
+    #endregion
+
+    #region ExistsCourse
 
     public bool ExistsCourse(int id)
     {
-        throw new NotImplementedException();
+        bool res = _courses.Any(x => x.Id == id);
+        return res;
     }
+
+    #endregion
+
+    #region ClearAllCourses
 
     public void ClearAllCourses()
     {
-        throw new NotImplementedException();
+        _courses.Clear();
     }
+
+    #endregion
 }

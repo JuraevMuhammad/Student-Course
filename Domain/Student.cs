@@ -6,7 +6,7 @@ public class Student
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public int BirthYear { get; set; }
-    public string Address { get; set; }
+    public string? Address { get; set; }
 
     private int cnt = 0;
     public Student(string firstName, string lastName, int birthYear, string address)
