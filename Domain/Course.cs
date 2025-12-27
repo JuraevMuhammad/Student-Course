@@ -8,7 +8,7 @@ public class Course
     public int StudentId { get; set; }
 
     private int cnt = 0;
-    public Course(int id, string title, string description, int studentId)
+    public Course(string title, string description, int studentId)
     {
         cnt++;
         Id = cnt;
@@ -17,6 +17,14 @@ public class Course
         StudentId = studentId;
     }
 
+    public Course(string title, int studentId)
+    {
+        cnt++;
+        Id = cnt;
+        Title = title;
+        StudentId = studentId;
+    }
+    
     public Course()
     {
         cnt++;

@@ -42,6 +42,8 @@ public class StudentService : IStudent, ICourse
         Console.WriteLine($"Student {student.Id} not found");
     }
 
+    #region DeleteStudent
+
     public void DeleteStudent(int id)
     {
         var result = _students.Find(x => x.Id == id);
@@ -53,6 +55,8 @@ public class StudentService : IStudent, ICourse
         }
         Console.WriteLine($"Student {id} has been deleted");
     }
+
+    #endregion
 
     public List<Student> SearchStudentByName(string name)
     {
@@ -328,7 +332,14 @@ public class StudentService : IStudent, ICourse
 
     public void DeleteCourse(int courseId)
     {
-        _courses.RemoveAll(x => x.Id == courseId);
+        var res = _courses.Find(x => x.Id == courseId);
+        if (res == null)
+        {
+            Console.WriteLine("Course not found");
+            return;
+        }
+        _courses.Remove(res);
+        // _courses.RemoveAll(x => x.Id == courseId);
     }
 
     #endregion
@@ -350,7 +361,7 @@ public class StudentService : IStudent, ICourse
 
     #region GetAdultStudents
 
-    public List<Course> GetAdultStudents(int minAge)
+    public List<Course> GetAdultStudents(int minAge = 18)
     {
         var res = _students.Where(x => (2025 - x.BirthYear) >= minAge).ToList();
         var result = _courses.Where(x => x.StudentId == res.FirstOrDefault().Id).ToList();
