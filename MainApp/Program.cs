@@ -209,7 +209,95 @@ try
 
                 break;
             case 13:
+                Console.WriteLine("---Get Students With More Than 'N' Courses---");
+                Console.Write("Введите минимальное число курсов: ");
+                try
+                {
+                    int number = int.Parse(Console.ReadLine());
+                    var result = studentService.GetStudentsWithMoreThanNCourses(number);
+                    foreach (var item in result)
+                    {
+                        item.GetInfo();
+                    }
+
+                    break;
+                }
+                catch
+                {
+                    throw new Exception("Введите только число!");
+                    break;
+                }
+            case 14:
+                Console.WriteLine("---Delete all Course of Student---");
+                Console.Write("Введите ID студента: ");
+                try
+                {
+                    int deleteId = int.Parse(Console.ReadLine());
+                    studentService.DeleteAllCoursesOfStudent(deleteId);
+                    Console.WriteLine("Delete All Course of Student => " + deleteId);
+                    break;
+                }
+                catch
+                {
+                    throw new Exception("Введите только число!");
+                    break;
+                }
+            case 15:
+                Console.WriteLine("---Remove Students Without Address---");
+                studentService.RemoveStudentsWithoutAddress();
+                break;
+            case 16:
+                Console.WriteLine("---Get Students By Address---");
+                Console.Write("Введите адрес студента: ");
+                string studentAddress = Console.ReadLine();
+                
+                studentService.GetStudentsByAddress(studentAddress);
+                break;
+            case 17:
+                Console.WriteLine("---Sort Students By Last Name---");
+                
+                var orderByLastName 
+                    = studentService.SortStudentsByLastName();
+                
+                foreach (var item in orderByLastName)
+                {
+                    item.GetInfo();
+                }
+                break;
+            case 18:
+                Console.WriteLine("---Sort Courses By Title---");
+                
+                var orderByTitle
+                    = studentService.SortCoursesByTitle();
+
+                foreach (var item in orderByTitle)
+                {
+                    item.DisplayInfo();
+                }
+
+                break;
+            case 19:
+                Console.WriteLine("---Get Youngest Student---");
+                
+                var youngestStudent 
+                    = studentService.GetYoungestStudent();
+                
+                youngestStudent.GetInfo();
+                break;
+            case 20:
+                Console.WriteLine("---Get Oldest Student---");
+                
+                var oldestStudent
+                    =  studentService.GetOldestStudent();
+                
+                oldestStudent.GetInfo();
+                break;
+            case 21:
                 Console.WriteLine("");
+                break;
+            default:
+                Console.WriteLine("Попробуйте ещё раз!");
+                break;
         }
 
     }

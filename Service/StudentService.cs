@@ -58,6 +58,8 @@ public class StudentService : IStudent, ICourse
 
     #endregion
 
+    #region SearchStudentByName
+
     public List<Student> SearchStudentByName(string name)
     {
         var result = _students.Where(x => x.FirstName.ToLower().Contains(name.ToLower())).ToList();
@@ -69,6 +71,8 @@ public class StudentService : IStudent, ICourse
 
         return null;
     }
+
+    #endregion
 
     #region GetStudentsWithoutCourses
     private List<Student> resStudents = new();
