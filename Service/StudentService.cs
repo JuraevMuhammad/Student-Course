@@ -170,8 +170,9 @@ public class StudentService : IStudent, ICourse
         if (res.Count == 0)
         {
             Console.WriteLine("No students found");
-            return null;
+            return res;
         }
+        Console.WriteLine("Students found");
         return res;
     }
 
@@ -281,7 +282,7 @@ public class StudentService : IStudent, ICourse
     public void ClearAllStudents()
     {
         _students.Clear();
-        Console.WriteLine("Clear all students");
+        Console.WriteLine("---Clear all Students---");
     }
 
     #endregion

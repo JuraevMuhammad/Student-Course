@@ -293,8 +293,132 @@ try
                 oldestStudent.GetInfo();
                 break;
             case 21:
-                Console.WriteLine("");
+                Console.WriteLine("---Edit Student Address---");
+                try
+                {
+                    Console.Write("Введите ID студента: ");
+                    int editId = int.Parse(Console.ReadLine());
+                    Console.Write("Введите new Address: ");
+                    string newAddress = Console.ReadLine();
+                    
+                    studentService.EditStudentAddress(editId, newAddress);
+                    break;
+                }
+                catch
+                {
+                    throw new Exception("В ID пишите только цыфры");
+                    break;
+                }
+            case 22:
+                Console.WriteLine("---Edit Student Birth Year---");
+                Console.Write("Введите ID студента: ");
+                int birthId = int.Parse(Console.ReadLine());
+                Console.Write("Введите новый год рождения: ");
+                int editBirthYear = int.Parse(Console.ReadLine());
+                if (editBirthYear > 1950 &&  editBirthYear < 2025)
+                {
+                    studentService.EditStudentBirthYear(birthId, editBirthYear);
+                }
+                else
+                {
+                    Console.WriteLine("Error!");
+                }
                 break;
+            case 23:
+                Console.WriteLine("---Clear All Courses---");
+                
+                studentService.ClearAllCourses();
+                Console.WriteLine("---Clear all Courses---");
+                break;
+            case 24:
+                Console.WriteLine("---Clear All Students---");
+                
+                studentService.ClearAllStudents();
+                Console.WriteLine("---Clear all Students---");
+                break;
+            case 25:
+                Console.WriteLine("---Exists Student---");
+                Console.Write("Введите ID студента: ");
+                int existsId = int.Parse(Console.ReadLine());
+                
+                bool isExist = studentService.ExistsStudent(existsId);
+                
+                Console.WriteLine("is exist: " + isExist);
+                break;
+            case 26:
+                Console.WriteLine("---Exists Course---");
+                Console.Write("Введите ID студента: ");
+                int existsIdCourse = int.Parse(Console.ReadLine());
+                
+                bool isExistCourse = studentService.ExistsCourse(existsIdCourse);
+                
+                Console.WriteLine("is exist: " + isExistCourse);
+                break;
+            case 27:
+                Console.WriteLine("---Get Students By Birth Year---");
+                Console.WriteLine("Введите год (year) для поиска: ");
+                int yearStudents = int.Parse(Console.ReadLine());
+
+                var getByBirthYear
+                    = studentService.GetStudentsByBirthYear(yearStudents);
+
+                if (getByBirthYear.Count > 0)
+                {
+                    Console.WriteLine($"Нашлось -{getByBirthYear.Count}- студентов.\nХотите их увидеть? (Yes || No)");
+                    Console.Write("-");
+                    string answer = Console.ReadLine();
+                    if (answer.ToLower() == "yes")
+                    {
+                        foreach (var item in getByBirthYear)
+                        {
+                            item.GetInfo();
+                        }
+
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            case 28:
+                Console.WriteLine("---Get Courses By Title Part---");
+                Console.Write("Введите название курса для поиска: ");
+                string titleCourse = Console.ReadLine();
+
+                var searchCourses 
+                    = studentService.GetCoursesByTitlePart(titleCourse);
+
+                if (searchCourses.Count > 0)
+                {
+                    Console.WriteLine($"Нашлось -{searchCourses.Count}- студентов.\nХотите их увидеть? (Yes || No)");
+                    Console.Write("-");
+                    string answer = Console.ReadLine();
+                    if (answer.ToLower() == "yes")
+                    {
+                        foreach (var item in searchCourses)
+                        {
+                            item.DisplayInfo();
+                        }
+
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            case 0:
+                Console.WriteLine("====================");
+                return;
             default:
                 Console.WriteLine("Попробуйте ещё раз!");
                 break;
