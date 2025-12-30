@@ -7,11 +7,8 @@ public class Course
     public string Description { get; set; }
     public int StudentId { get; set; }
 
-    private int cnt = 0;
     public Course(string title, string description, int studentId)
     {
-        cnt++;
-        Id = cnt;
         Title = title;
         Description = description;
         StudentId = studentId;
@@ -19,16 +16,13 @@ public class Course
 
     public Course(string title, int studentId)
     {
-        cnt++;
-        Id = cnt;
         Title = title;
         StudentId = studentId;
     }
     
     public Course()
     {
-        cnt++;
-        Id = cnt;
+        
     }
 
     public void DisplayInfo()

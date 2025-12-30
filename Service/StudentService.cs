@@ -9,10 +9,12 @@ public class StudentService : IStudent, ICourse
 {
     private readonly List<Student> _students = new();
     private readonly List<Course> _courses = new();
+    private int cntStudent = 1;
 
     // Student Methods
     public void AddStudent(Student student)
     {
+        student.Id = cntStudent++;
         _students.Add(student);
         Console.WriteLine($"Student {student.Id} has been added");
     }
@@ -291,8 +293,10 @@ public class StudentService : IStudent, ICourse
 
     #region AddCourse
 
+    private int cntCourse = 1;
     public void AddCourse(Course course)
     {
+        course.Id = cntCourse++;
         _courses.Add(course);
         Console.WriteLine($"Create course Id: {course.Id}");
     }
